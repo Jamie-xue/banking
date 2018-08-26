@@ -28,11 +28,11 @@ public class ProductRpcService {
 
     private static Logger LOG = LoggerFactory.getLogger(ProductRpcService.class);
 
-    public void findAll(){
+    public List<Product>  findAll(){
         //List<String> idList, List<String> statusList, BigDecimal minRewardRate, BigDecimal maxRewardRate, Integer pageNum, Integer pageSize
         List<String> idList=new ArrayList<>();
         List<String> statusList= new ArrayList<>();
-        statusList.add(ProductStatus.IN_SELL.getDesc());
+        statusList.add(ProductStatus.IN_SELL.name());
 
         ProductRpcReq req = new ProductRpcReq();
         req.setStatusList(statusList);
@@ -41,12 +41,22 @@ public class ProductRpcService {
         LOG.info("调用rpc服务productList请求：{}",req);
         List<Product> productList = productRpc.query(req);
         LOG.info("调用rpc服务productList结果：{}",productList);
-        //return productList;
+        return productList;
     }
+
+
+    public Product findOnePro(){
+        String id = "123";
+        LOG.info("调用rpc服务findOnePro请求：{}",id);
+        Product one = productRpc.findOne(id);
+        LOG.info("调用rpc服务findOnePro结果：{}",one);
+        return one;
+    }
+
 
     @PostConstruct
     public void testProductRpcService(){
-        findAll();
+       findAll();
     }
 
 }
