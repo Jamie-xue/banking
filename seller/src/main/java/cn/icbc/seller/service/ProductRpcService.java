@@ -6,7 +6,10 @@ import cn.icbc.entity.Product;
 import cn.icbc.entity.enums.ProductStatus;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.context.ApplicationListener;
+import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.stereotype.Service;
 
 import javax.annotation.Resource;
@@ -18,39 +21,42 @@ import java.util.List;
  * @Date: 2018/8/26 10:06
  */
 @Service
-public class ProductRpcService {
+public class ProductRpcService implements ApplicationListener<ContextRefreshedEvent> {
 
-    @Resource
-    private ProductRpc productRpc;
+
+    @Autowired
+    private ProductCache productCache;
 
 
     private static Logger LOG = LoggerFactory.getLogger(ProductRpcService.class);
 
-    public List<Product>  findAll(){
-        //List<String> idList, List<String> statusList, BigDecimal minRewardRate, BigDecimal maxRewardRate, Integer pageNum, Integer pageSize
-        List<String> idList=new ArrayList<>();
-        List<String> statusList= new ArrayList<>();
-        statusList.add(ProductStatus.IN_SELL.name());
 
-        ProductRpcReq req = new ProductRpcReq();
-        req.setStatusList(statusList);
-        req.setPageNum(0);
-        req.setPageSize(100);
-        LOG.info("调用rpc服务productList请求：{}",req);
-        List<Product> productList = productRpc.query(req);
-        LOG.info("调用rpc服务productList结果：{}",productList);
-        return productList;
+    public List<Product> findAll() {
+        return productCache.findAllCache();
     }
 
+    public Product findOnePro(String id) {
 
+        Product onePro = productCache.findOnePro(id);
+        if (onePro == null) {
+            productCache.removeCache(id);
+        }
 
-    @Cacheable(cacheNames = "itcast_product")
-    public Product findOnePro( String id){
-        //id = "1";
-        LOG.info("调用rpc服务findOnePro请求：{}",id);
-        Product one = productRpc.findOne(id);
-        LOG.info("调用rpc服务findOnePro结果：{}",one);
-        return one;
+        return onePro;
+    }
+
+    /**
+     * Handle an application event.
+     *
+     * @param event the event to respond to
+     */
+    @Override
+    public void onApplicationEvent(ContextRefreshedEvent event) {
+
+        List<Product> products = findAll();
+        products.forEach(product -> {
+            productCache.putCache(product);
+        });
     }
 
 
