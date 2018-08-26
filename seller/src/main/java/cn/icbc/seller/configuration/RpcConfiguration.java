@@ -1,4 +1,4 @@
-package cn.icbc.saller.configuration;
+package cn.icbc.seller.configuration;
 
 import cn.icbc.api.ProductRpc;
 import com.googlecode.jsonrpc4j.spring.AutoJsonRpcClientProxyCreator;

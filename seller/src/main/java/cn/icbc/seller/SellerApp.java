@@ -1,10 +1,10 @@
-package cn.icbc.saller;
+package cn.icbc.seller;
 
 import org.springframework.boot.SpringApplication;
-import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.autoconfigure.jdbc.DataSourceAutoConfiguration;
 import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfiguration;
+import org.springframework.cache.annotation.EnableCaching;
 
 /**
  * @Auther: asus
@@ -12,9 +12,10 @@ import org.springframework.boot.autoconfigure.orm.jpa.HibernateJpaAutoConfigurat
  */
 
 @SpringBootApplication(exclude={DataSourceAutoConfiguration.class, HibernateJpaAutoConfiguration.class})
-public class SallerApp {
+@EnableCaching
+public class SellerApp {
 
     public static void main(String[] args) {
-        SpringApplication.run(SallerApp.class,args);
+        SpringApplication.run(SellerApp.class,args);
     }
 }

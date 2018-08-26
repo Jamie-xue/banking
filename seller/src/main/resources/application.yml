@@ -1,6 +1,6 @@
 server:
   context-path: /seller
-  port: 8082
+  port: 8083
 
 rpc.manager.url : http://localhost:8081/manager/
 spring:
@@ -8,4 +8,8 @@ spring:
     date-format: yyyy-MM-dd HH:mm:ss
     time-zone: GMT+8
 
-
+  cache:
+    type: hazelcast
+logging:
+  level:
+    com.googlecode.jsonrpc4j: debug

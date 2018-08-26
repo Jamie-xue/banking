@@ -20,6 +20,11 @@ ext {
                     "io.springfox:springfox-swagger-ui:2.7.0"
 
             ],
+            hazelcast : [
+                    "com.hazelcast:hazelcast:3.8.6",
+                    "com.hazelcast:hazelcast-spring:3.8.6"
+
+            ],
 
 
             test   : [

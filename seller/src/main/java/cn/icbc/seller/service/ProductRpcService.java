@@ -1,16 +1,14 @@
-package cn.icbc.saller.service;
+package cn.icbc.seller.service;
 
 import cn.icbc.api.ProductRpc;
 import cn.icbc.api.domain.ProductRpcReq;
 import cn.icbc.entity.Product;
 import cn.icbc.entity.enums.ProductStatus;
-import cn.icbc.saller.configuration.RpcConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
-import javax.annotation.PostConstruct;
 import javax.annotation.Resource;
 import java.util.ArrayList;
 import java.util.List;
@@ -45,8 +43,10 @@ public class ProductRpcService {
     }
 
 
-    public Product findOnePro(){
-        String id = "123";
+
+    @Cacheable(cacheNames = "itcast_product")
+    public Product findOnePro( String id){
+        //id = "1";
         LOG.info("调用rpc服务findOnePro请求：{}",id);
         Product one = productRpc.findOne(id);
         LOG.info("调用rpc服务findOnePro结果：{}",one);
@@ -54,9 +54,10 @@ public class ProductRpcService {
     }
 
 
-    @PostConstruct
+/*    @PostConstruct
     public void testProductRpcService(){
        findAll();
-    }
+       findOnePro();
+    }*/
 
 }
