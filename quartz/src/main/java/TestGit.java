@@ -5,4 +5,8 @@
 public class TestGit {
 
     private String hehe;
+
+    public void fun(){
+
+    }
 }
