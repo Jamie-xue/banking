@@ -39,7 +39,7 @@ public class RSAUtilTest {
 
     @Test
     public void fun() {
-        String say = "\"amount\":11000,\"chanId\":\"3\",\"chanUserId\":\"3322\",\"createAt\":\"2018-08-26 05:11:59\",\"memo\":\"6\",\"outerOrderId\":\"8908658\",\"productId\":\"8\"";
+        String say = "{\"amount\":1500,\"chanId\":\"3223233\",\"chanUserId\":\"3322\",\"createAt\":1536556319000,\"memo\":\"6\",\"outerOrderId\":\"8958\",\"productId\":\"8\"}";
         String sign = RSAUtil.sign(say, privateKey);
 
         System.out.println("签名："+ sign);

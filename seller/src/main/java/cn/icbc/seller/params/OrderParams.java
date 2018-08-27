@@ -27,7 +27,7 @@ public class OrderParams implements SignText {
     //备注
     private String memo;
 
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    //@JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createAt;
 
     @Override
