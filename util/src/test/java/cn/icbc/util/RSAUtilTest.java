@@ -2,6 +2,10 @@ package cn.icbc.util;
 
 import org.junit.Test;
 
+import java.security.PublicKey;
+import java.util.HashMap;
+import java.util.Map;
+
 import static org.junit.Assert.*;
 
 /**
@@ -9,6 +13,9 @@ import static org.junit.Assert.*;
  * @Date: 2018/8/27 13:15
  */
 public class RSAUtilTest {
+
+
+
 
     private final String publicKey="MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC34KfY0fn04Z+LStMIOVKg1w4M\n" +
             "8YMd37wfUgyvgTsal/HqP71MRH+9PPOqkBF4Nhx4909POZivhWYNgZYAn67uB1SD\n" +
@@ -32,9 +39,11 @@ public class RSAUtilTest {
 
     @Test
     public void fun() {
-        String say = "I LOVE YOU";
+        String say = "\"amount\":11000,\"chanId\":\"3\",\"chanUserId\":\"3322\",\"createAt\":\"2018-08-26 05:11:59\",\"memo\":\"6\",\"outerOrderId\":\"8908658\",\"productId\":\"8\"";
         String sign = RSAUtil.sign(say, privateKey);
-        System.out.println("签名："+sign.toString());
+
+        System.out.println("签名："+ sign);
+
         boolean verify = RSAUtil.verify(say, sign, publicKey);
 
         System.out.println("验签结果："+verify);
