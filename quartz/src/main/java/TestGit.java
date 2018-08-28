@@ -7,6 +7,7 @@ public class TestGit {
     private String hehe;
 
     public void fun(){
+        System.out.println("SUCCESS");
 
     }
 }
